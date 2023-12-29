@@ -44,7 +44,6 @@ jobs:
       - name: Terraform the stack
         run: |
           cd src/crud
-          mkdir python
           zip demo_lambda.zip endpoints.py
           mv proxy.zip ../../infrastructure/demo_lambda.zip
          
