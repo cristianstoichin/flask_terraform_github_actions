@@ -1,1 +1,1 @@
-awsgi
+aws-wsgi
