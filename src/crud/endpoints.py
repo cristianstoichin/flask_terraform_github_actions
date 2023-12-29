@@ -111,7 +111,14 @@ def update_item(productName: str, productKey: str, productDescription: str):
         'body': json.dumps({'result': True})
     }
 
-@app.route('/items/<id>', methods=['DELETE'])
+
+@app.route('/product/<id>', methods=['GET'])
+def get_item(id):
+    # Code to delete item with given ID from database or elsewhere
+    return json.dumps({'success': True})
+
+
+@app.route('/product/<id>', methods=['DELETE'])
 def delete_item(id):
     # Code to delete item with given ID from database or elsewhere
     return json.dumps({'success': True})
