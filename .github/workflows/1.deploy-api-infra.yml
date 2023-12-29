@@ -1,4 +1,4 @@
-name: 2. Deploy API Infra
+name: 1. Deploy API Infra
 on:
   workflow_dispatch:
     inputs:
