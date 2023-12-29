@@ -1,4 +1,4 @@
-from awsgi import awsgi
+import awsgi
 import json
 from flask import Flask
 import os
