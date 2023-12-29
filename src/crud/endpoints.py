@@ -1,6 +1,6 @@
 import awsgi
 import json
-from flask import Flask, request
+from flask import Flask
 import os
 import time
 from boto3.dynamodb.conditions import Key
@@ -116,7 +116,7 @@ def delete_item(id):
     # Code to delete item with given ID from database or elsewhere
     return json.dumps({'success': True})
 
-def handler(event, context):
+def lambda_handler(event, context):
     return awsgi.response(app, event, context)
 
 def add_days(extra_days: int) -> int:
