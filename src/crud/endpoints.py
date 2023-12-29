@@ -8,7 +8,7 @@ import boto3
 import datetime
 
 dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table(os.environ['table_product_name'])
+table = dynamodb.Table(os.environ['table_name'])
 ProductKey='Product'
 
 app = Flask(__name__)
