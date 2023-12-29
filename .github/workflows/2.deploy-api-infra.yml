@@ -49,7 +49,7 @@ jobs:
          
           cd ../..
           ls
-          cd src/layers/flask
+          cd src/layers
           mkdir python
           pip install --upgrade -r requirements.txt -t python
           zip -r flask_lambda_layer.zip python
