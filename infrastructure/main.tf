@@ -117,6 +117,19 @@ module "flask_lambda_layer" {
   ]
 }
 
+module "awsgi_lambda_layer" {
+  source             = "./modules/lambda-layer"
+  bucket_key         = "layers/builds/awsgi/awsgi_lambda_layer.zip"
+  bucket_name        = module.s3_artifact_bucket.s3_bucket_name
+  source_key         = "awsgi_lambda_layer.zip"
+  kms_encryption_key = module.s3_artifact_bucket.s3_bucket_key_arn
+  layer_name         = "awsgi"
+  bucket_id          = module.s3_artifact_bucket.s3_bucket_id
+  depends_on = [
+    module.s3_artifact_bucket
+  ]
+}
+
 ###########################################################
 #  Lambdas
 ###########################################################
@@ -138,14 +151,15 @@ module "lambda_function_demo" {
   lambda_memory_size   = var.lambda_memory_size
   tags                 = local.default_tags
   layers = [
-    "${module.flask_lambda_layer.lambda_layer_arn}"
+    "${module.flask_lambda_layer.lambda_layer_arn}",
+    "${module.awsgi_lambda_layer.lambda_layer_arn}"
   ]
   variables = {
     environment = var.environment,
     table_name  = module.dynamodb_table.dynamodb_table_name
   }
   depends_on = [
-    module.s3_artifact_bucket, module.iam_lambda_task_execution_role, module.flask_lambda_layer
+    module.s3_artifact_bucket, module.iam_lambda_task_execution_role, module.flask_lambda_layer, module.awsgi_lambda_layer
   ]
 }
 
