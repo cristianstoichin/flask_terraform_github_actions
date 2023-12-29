@@ -47,7 +47,7 @@ jobs:
           zip demo_lambda.zip endpoints.py
           mv demo_lambda.zip ../../infrastructure/demo_lambda.zip
          
-          cd ../..
+          cd ..
           
           cd src/layers/flask
           
