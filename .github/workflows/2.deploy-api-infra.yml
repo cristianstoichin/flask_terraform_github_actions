@@ -49,12 +49,20 @@ jobs:
          
           cd ../..
           
-          cd src/layers
+          cd src/layers/flask
           
           mkdir python
           pip install --upgrade -r requirements.txt -t python
           zip -r flask_lambda_layer.zip python
           mv flask_lambda_layer.zip ../../infrastructure/flask_lambda_layer.zip
+
+          cd ..
+          cd awsgi
+
+          mkdir python
+          pip install --upgrade -r requirements.txt -t python
+          zip -r awsgi_lambda_layer.zip python
+          mv awsgi_lambda_layer.zip ../../infrastructure/awsgi_lambda_layer.zip
           
       - name: Deploy Lambda
         run: |
