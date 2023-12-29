@@ -42,6 +42,17 @@ module "dynamodb_table" {
 }
 
 ###########################################################
+#  S3 Artifact Bucket
+###########################################################
+
+module "s3_artifact_bucket" {
+  source = "./modules/s3"
+  application = "${var.application}-python-lambda"
+  environment = var.environment
+  tags        = local.default_tags
+}
+
+###########################################################
 #  Lambda Role
 ###########################################################
 
@@ -121,7 +132,7 @@ module "lambda_function_demo" {
   lambda_log_retention = var.lambda_log_retention
   kms_encryption_key   = module.s3_artifact_bucket.s3_bucket_key_arn
   lambda_name          = "demo-lambda-${var.environment}"
-  lambda_role_arn      = module.iam_lambda_update_notification_role.iam_role_arn
+  lambda_role_arn      = module.iam_lambda_task_execution_role.iam_role_arn
   lambda_timeout       = var.lambda_timeout
   lambda_handler       = "endpoints.${var.lambda_handler}"
   lambda_memory_size   = var.lambda_memory_size
@@ -151,7 +162,7 @@ module "api_gateway_demo" {
   sub_domain       = "api"
   tags             = local.default_tags
   depends_on = [
-    module.lambda_function_admin_backend_insert
+    module.lambda_function_demo
   ]
 }
 

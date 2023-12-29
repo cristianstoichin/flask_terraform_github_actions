@@ -42,10 +42,6 @@ variable "hosted_zone_name" {
   type = string
 }
 
-variable "layer_name" {
-  type = string
-}
-
 variable "table_name" {
   type = string
 }

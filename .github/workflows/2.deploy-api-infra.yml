@@ -1,0 +1,78 @@
+name: 2. Deploy API Infra
+on:
+  workflow_dispatch:
+    inputs:
+      environment_file:
+        type: choice 
+        description: Environment
+        required: true
+        options: 
+        - dev
+      name:
+        type: choice
+        description: Terraform Action type
+        required: true
+        options: 
+        - Plan
+        - Deploy
+        - Destroy
+env:
+  APP_NAME: Build Role 
+  TAG: ${{ github.sha }}
+  BRANCH: ${{ github.ref }}
+jobs:
+  "aws-secure-access":
+    name: "checkout and build"
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # required to use OIDC authentication
+      contents: read # required to checkout the code from the repo
+    steps:
+      - name: Establish secure session to AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with: 
+         role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+         role-duration-seconds: 900
+         aws-region: ${{ secrets.AWS_REGION }}
+      - uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v1
+      - name: Terraform the stack
+        run: |
+          cd src/crud
+          mkdir python
+          zip demo_lambda.zip endpoints.py
+          mv proxy.zip ../../infrastructure/demo_lambda.zip
+         
+          cd ../..
+
+          cd src/layers/flask
+          mkdir python
+          pip install --upgrade -r requirements.txt -t python
+          zip -r flask_lambda_layer.zip python
+          mv flask_lambda_layer.zip ../../../infrastructure/flask_lambda_layer.zip
+          
+      - name: Deploy Lambda
+        run: |
+          #Initialize the terraform provider with the correct State file per environment. The state is stored in a specific subfolder in an S3 bucket.
+          cd infrastructure
+          terraform init -backend-config="config/backend-${{ github.event.inputs.environment_file }}.hcl"
+          
+          #Run the plan command for the current template.
+          if [ "${{ github.event.inputs.name }}" = "Plan" ]; then
+            terraform plan -var-file="variables/${{ github.event.inputs.environment_file }}.tfvars"
+          fi
+          
+          #Run the terraform deploy command.
+          if [ "${{ github.event.inputs.name }}" = "Deploy" ]; then
+            #TF_LOG="DEBUG"
+            terraform apply -var-file="variables/${{ github.event.inputs.environment_file }}.tfvars" -auto-approve
+          fi
+          if [ "${{ github.event.inputs.name }}" = "Destroy" ]; then
+            terraform destroy -var-file="variables/${{ github.event.inputs.environment_file }}.tfvars" -auto-approve
+          fi
+      - run: echo "This job's status is ${{ job.status }}."
