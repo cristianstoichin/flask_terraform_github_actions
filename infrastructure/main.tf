@@ -190,21 +190,10 @@ module "api_gateway_resource_validator_get" {
 }
 
 #Proxy endpoint
-module "api_gateway_resource_flask" {
-  source      = "./modules/apig-resource"
-  rest_api_id = module.api_gateway_demo.rest_api_id
-  parent_id   = module.api_gateway_demo.rest_api_root_resource_id
-  path_part   = "demo"
-  depends_on = [
-    module.api_gateway_demo
-  ]
-}
-
-#Proxy endpoint
 module "api_gateway_resource_flask_proxy" {
   source      = "./modules/apig-resource"
   rest_api_id = module.api_gateway_demo.rest_api_id
-  parent_id   = module.api_gateway_resource_flask.resource_id
+  parent_id   = module.api_gateway_demo.rest_api_root_resource_id
   path_part   = "{proxy+}"
   depends_on = [
     module.api_gateway_demo
