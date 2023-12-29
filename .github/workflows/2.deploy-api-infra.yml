@@ -45,7 +45,7 @@ jobs:
         run: |
           cd src/crud
           zip demo_lambda.zip endpoints.py
-          mv proxy.zip ../../infrastructure/demo_lambda.zip
+          mv demo_lambda.zip ../../infrastructure/demo_lambda.zip
          
           cd ../..
 
