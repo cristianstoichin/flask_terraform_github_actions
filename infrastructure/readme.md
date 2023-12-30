@@ -2,7 +2,7 @@
 
 This directory includes the terraform templates for the flask api. These templates are executed by GitHub Actions to set up the necessary infrastructure for hosting the flask application.
 
-### [SPA Template](https://github.com/cristianstoichin/flask_terraform_github_actions/tree/main/infrastructure)
+### [Flask Api Template](https://github.com/cristianstoichin/flask_terraform_github_actions/tree/main/infrastructure)
 
 This template is designed to create the following resources in your AWS account:
 
