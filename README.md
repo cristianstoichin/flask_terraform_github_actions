@@ -1,6 +1,6 @@
 # Python FLask API with Terraform for IaC and GitHub Actions CI/CD
 
-## Introduction
+## Introduction 
 Welcome to our python flask example repository. This project is designed to provide a simple, yet effective, demonstration of integrating a basic Python Flask api with Infrastructure as Code (IaC) using Terraform scripts, alongside a Continuous Integration and Continuous Deployment (CI/CD) pipeline facilitated by GitHub Actions.
 
 [Access demo react app](https://react-terraform.dash-demo.click/)
