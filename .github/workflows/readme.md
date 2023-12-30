@@ -14,7 +14,7 @@ Before running the Job (manual trigger), you must first have the following Githu
    - This must be an existing Role in your AWS account that will allow the job to run the `aws cloudformation deploy` command.
       - Typically, this role is granted Admin permissions in AWS. However, be aware that this could pose a security risk. AWS recommends using the least privileged permissions for enhanced security.
 2. `AWS_REGION`
-   - This is the AWS region where you want you stack to be deployed.
+   - This is required by the `aws-actions/configure-aws-credentials@v1` Github action that connects to your AWS account to get temporary credentials to be able to deploy the changes to the S3 bucket.
 3. `hosted_zone_name`
    - This is a pre-requisite before running the deployment. You must have a Route53 hosted zone (public) that will be used to validate the ssl certificate.
 
