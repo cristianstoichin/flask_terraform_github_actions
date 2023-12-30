@@ -1,18 +1,18 @@
-# React Hello World with AWS CloudFormation and GitHub Actions CI/CD
+# Python FLask API with Terraform for IaC and GitHub Actions CI/CD
 
 ## Introduction
-Welcome to our React Hello World example repository. This project is designed to provide a simple, yet effective, demonstration of integrating a basic React application with Infrastructure as Code (IaC) using Terraform scripts, alongside a Continuous Integration and Continuous Deployment (CI/CD) pipeline facilitated by GitHub Actions.
+Welcome to our python flask example repository. This project is designed to provide a simple, yet effective, demonstration of integrating a basic Python Flask api with Infrastructure as Code (IaC) using Terraform scripts, alongside a Continuous Integration and Continuous Deployment (CI/CD) pipeline facilitated by GitHub Actions.
 
 [Access demo react app](https://react-terraform.dash-demo.click/)
 
 ## Project Structure
-- `src/`: Contains the source code for the React application.
+- `src/`: Contains the source code for the Python flask application.
 - `infrastructure/`: The Terraform templates for infrastructure setup.
 - `.github/workflows/`: Contains the GitHub Actions workflow definitions for CI/CD.
 
 ## Getting Started
 ### Prerequisites
-- Node.js and npm installed
+- Python installed
 - AWS CLI configured with appropriate permissions
 - GitHub account
 
