@@ -17,6 +17,6 @@ The template is using the [dev.tfvars](https://github.com/cristianstoichin/flask
 
 `Before deploying this to your AWS account, you must have a pre-existing Route53 public hosted zone in place, which is required for validating the certificate.`
 
-The templates are using this [configuration file](https://github.com/cristianstoichin/react-ci-cd-terraform/blob/main/infrastructure/terraform/2.spa/config/backend-dev.hcl) to tell Terraform where the state files are stored. In this case, we use an S3 terraform backend. 
+The templates are using this [configuration file](https://github.com/cristianstoichin/flask_terraform_github_actions/blob/main/infrastructure/config/backend-dev.hcl) to tell Terraform where the state files are stored. In this case, we use an S3 terraform backend. 
 
 `Before deploying this to your AWS account, you must have a pre-existing S3 bucket created in your AWS account and change` [this value](https://github.com/cristianstoichin/flask_terraform_github_actions/blob/main/infrastructure/config/backend-dev.hcl#L1) `to your bucket's name.`
