@@ -16,7 +16,7 @@ app = Flask(__name__)
 @app.route('/products', methods=['GET'])
 def get_items():
     # Code to get items from database or elsewhere
-    return json.dumps({'success': True})
+    return json.dumps({'result': True, 'message': "Not Implemented"})
 
 @app.route('/product', methods=['POST'])
 def create_item(productName: str, productKey: str, productDescription: str):
@@ -113,9 +113,41 @@ def update_item(productName: str, productKey: str, productDescription: str):
 
 
 @app.route('/product/<id>', methods=['GET'])
-def get_item(id):
-    # Code to delete item with given ID from database or elsewhere
-    return json.dumps({'success': True})
+def get_item(productKey:str):
+    # Code to retrieve item with given ID from database or elsewhere
+    response = table.query(
+        KeyConditionExpression=Key('PK').eq(ProductKey) & Key('RK').eq(productKey)
+    )
+    
+    records = response['Items']
+    
+    if records is None or len(records) == 0:
+        return {
+            'statusCode': 404,
+            'headers': {
+                'Access-Control-Allow-Origin': '*', 
+                'Access-Control-Allow-Credentials': False,
+            },
+            'body': json.dumps({
+                'result': False
+            })
+        }
+    
+    record = records[0]
+
+    response = {}
+    response['productKey'] = record['productKey']
+    response['productName'] = record['productName']
+    response['productDescription'] = record['productDescription']
+
+    return {
+        'statusCode': 200,
+        'headers': {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': False,
+        },
+        'body': json.dumps(response)
+    }
 
 
 @app.route('/product/<id>', methods=['DELETE'])
