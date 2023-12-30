@@ -1,6 +1,6 @@
 region = "us-west-2"
 environment = "dev"
-application = "flask-demo"
+application = "flask-apig"
 lambda_log_retention = 7
 lambda_timeout = 29
 lambda_memory_size = 512
