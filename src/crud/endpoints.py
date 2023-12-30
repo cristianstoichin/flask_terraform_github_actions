@@ -112,7 +112,7 @@ def update_item(productName: str, productKey: str, productDescription: str):
     }
 
 
-@app.route('/product/<id>', methods=['GET'])
+@app.route('/product/<productKey>', methods=['GET'])
 def get_item(productKey:str):
     # Code to retrieve item with given ID from database or elsewhere
     response = table.query(
